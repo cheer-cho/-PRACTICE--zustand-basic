@@ -10,10 +10,12 @@ const setCount = () => {
   useCounterStore.setState((prev) => ({ ...prev, count: 1 }));
 };
 
-const OtherComponent = ({ count }: { count: number }) => {
+const OtherComponent = () => {
+  const count = useCounterStore((state) => state.count);
   const increment = useCounterStore((state) => state.increment);
   const incrementAsync = useCounterStore((state) => state.incrementAsync);
   const decrement = useCounterStore((state) => state.decrement);
+  console.log('OtherComponent rerendered')
 
   useEffect(() => {
     logCount();
@@ -39,9 +41,27 @@ const OtherComponent = ({ count }: { count: number }) => {
   );
 };
 
+const TimerComponent = () => {
+  const timer = useCounterStore((state) => state.timer);
+  const setTimer = useCounterStore((state) => state.setTimer);
+  console.log('TimerComponent rerendered')
+  return (
+    <div>
+      {timer}
+      <div>
+        <button onClick={() => setTimer(5)}>Set timer</button>
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
-  const count = useCounterStore((state) => state.count);
-  return <OtherComponent count={count} />;
+  return (
+    <>
+      <OtherComponent />
+      <TimerComponent />
+    </>
+  );
 };
 
 export default App;
