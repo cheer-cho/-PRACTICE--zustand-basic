@@ -2,12 +2,16 @@ import { useCounterStore } from './store';
 
 const OtherComponent = ({ count }: { count: number }) => {
   const increment = useCounterStore((state) => state.increment);
+  const incrementAsync = useCounterStore((state) => state.incrementAsync);
   const decrement = useCounterStore((state) => state.decrement);
   return (
     <div>
       {count}
       <div>
         <button onClick={increment}>Increment</button>
+      </div>
+      <div>
+        <button onClick={incrementAsync}>incrementAsync</button>
       </div>
       <div>
         <button onClick={decrement}>Decrement</button>
