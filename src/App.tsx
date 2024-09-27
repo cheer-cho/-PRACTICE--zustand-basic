@@ -1,9 +1,28 @@
+import { useEffect } from 'react';
 import { useCounterStore } from './store';
+
+const logCount = () => {
+  const count = useCounterStore.getState().count;
+  console.log('count: ', count);
+};
+
+const setCount = () => {
+  useCounterStore.setState((prev) => ({ ...prev, count: 1 }));
+};
 
 const OtherComponent = ({ count }: { count: number }) => {
   const increment = useCounterStore((state) => state.increment);
   const incrementAsync = useCounterStore((state) => state.incrementAsync);
   const decrement = useCounterStore((state) => state.decrement);
+
+  useEffect(() => {
+    logCount();
+  }, []);
+
+  useEffect(() => {
+    setCount();
+  }, []);
+
   return (
     <div>
       {count}
